@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 const Navbar = () => {
     const pathname=usePathname();
     const links=<>
-    <li><Link href="/workouts" className={pathname === "/workouts" ? "text-accent" : "text-gray-400"}> Workout</Link></li>
+    <li><Link href="/Home" className={pathname === "/workouts" ? "text-accent" : "text-gray-400"}> Workout</Link></li>
         <li><Link href="/my-plan" className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>My Plan</Link></li>
     </>;
     return (

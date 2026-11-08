@@ -6,7 +6,7 @@ const Workoutcard = ({product}:{product: ProductType}) => {
 
     return (
         <div>
-        <Link href={`/blogs/${product.id}`} className="block">
+        <Link href={`/workout/${product.id}`} className="block">
       <div className="overflow-hidden rounded-[22px] border border-[#292b33] bg-[#15161b] text-white transition-all duration-300 hover:-translate-y-1 hover:border-[#c6ff00]">
 
         <figure>
