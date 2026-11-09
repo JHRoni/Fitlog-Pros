@@ -1,6 +1,7 @@
+'use client';
 import React, { createContext, useState } from 'react';
 
-const ProductContext = createContext({});
+export const ProductContext = createContext({});
 
 const ProductContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [Addplan,setAddplan] = useState([]);

@@ -1,11 +1,15 @@
 "use client";
+import { ProductContext } from '@/context/productContext';
+import { ProductType } from '@/types/datatype';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useContext } from 'react';
 
 const Navbar = () => {
+   const {Addplan}=useContext(ProductContext) as {Addplan:ProductType[]};
     const pathname=usePathname();
     const links=<>
-    <li><Link href="/Home" className={pathname === "/workouts" ? "text-accent" : "text-gray-400"}> Workout</Link></li>
+    <li><Link href="/" className={pathname === "/" ? "text-accent" : "text-gray-400"}> Workout</Link></li>
         <li><Link href="/my-plan" className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>My Plan</Link></li>
     </>;
     return (
@@ -32,7 +36,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end gap-2.5">
-    <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Plan</Link>
+    <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Plan {Addplan.length}</Link>
     <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Saved</Link>
   </div>
 </div>

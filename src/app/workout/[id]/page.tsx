@@ -4,10 +4,10 @@ import { ArrowLeft } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 import PlanButton from '@/workoutdetails/planbutton';
-
+export const instant = false;
 const WorkoutPage = async ({params}:{ params: Promise<{ id: string }>}) => {
 const {id} = await params;
- const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
+ const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`,{cache:'no-store'});
     const product = await res.json();
     return (
             <div className="min-h-screen bg-[#101114] px-6 py-12 text-white md:px-12">
@@ -108,10 +108,10 @@ const {id} = await params;
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-3 pt-2">
 
-            <div className="flex cursor-pointer items-center gap-2 rounded-lg bg-[#c6ff00] px-5 py-3 font-bold text-black">
-              <CalendarDays size={18} />
-              <PlanButton/>
-            </div>
+            <div className="flex items-center gap-2 rounded-lg bg-[#c6ff00] px-5 py-3 font-bold text-black">
+  <CalendarDays size={18} />
+  <PlanButton product={product} />
+</div>
 
             <div className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#353945] px-5 py-3 text-white">
               <Bookmark size={18} />
