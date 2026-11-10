@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import React from 'react';
 import Link from 'next/link';
 import PlanButton from '@/workoutdetails/planbutton';
+import SaveButton from '@/workoutdetails/savebutton';
 export const instant = false;
 const WorkoutPage = async ({params}:{ params: Promise<{ id: string }>}) => {
 const {id} = await params;
@@ -115,7 +116,7 @@ const {id} = await params;
 
             <div className="flex cursor-pointer items-center gap-2 rounded-lg border border-[#353945] px-5 py-3 text-white">
               <Bookmark size={18} />
-              Save for later
+              <SaveButton product={product} />
             </div>
 
           </div>

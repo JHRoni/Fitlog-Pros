@@ -6,14 +6,14 @@ import { usePathname } from 'next/navigation';
 import { useContext } from 'react';
 
 const Navbar = () => {
-   const {Addplan}=useContext(ProductContext) as {Addplan:ProductType[]};
+   const {Addplan, Savedplan}=useContext(ProductContext) as {Addplan:ProductType[], Savedplan:ProductType[]};
     const pathname=usePathname();
     const links=<>
     <li><Link href="/" className={pathname === "/" ? "text-accent" : "text-gray-400"}> Workout</Link></li>
         <li><Link href="/my-plan" className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>My Plan</Link></li>
     </>;
     return (
-       <div className="navbar bg-base-100 shadow-sm">
+       <div className="navbar bg-base-100 shadow-sm flex justify-around">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -37,7 +37,7 @@ const Navbar = () => {
   </div>
   <div className="navbar-end gap-2.5">
     <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Plan {Addplan.length}</Link>
-    <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Saved</Link>
+    <Link href='/my-plan' className={pathname === "/my-plan" ? "text-accent" : "text-gray-400"}>Saved {Savedplan.length}</Link>
   </div>
 </div>
     );

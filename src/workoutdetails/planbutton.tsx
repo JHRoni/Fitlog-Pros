@@ -13,7 +13,11 @@ const PlanButton = ({ product }: { product: ProductType }) => {
   };
 
   const clickHandle = () => {
-    setAddplan([...Addplan, product]);
+    if (Addplan.some((item) => item.id === product.id)) {
+      toast.error("Workout already added to your plan!");
+      return;
+    }
+    setAddplan((prev) => [...prev, product]);
     toast.success("Workout added to your plan!");
   };
 

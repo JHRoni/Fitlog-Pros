@@ -1,21 +1,25 @@
 'use client';
 import React, { createContext, useState } from 'react';
+import { ProductType } from '@/types/datatype';
 
-export const ProductContext = createContext({});
+type ContextType = {
+    Addplan: ProductType[];
+    setAddplan: React.Dispatch<React.SetStateAction<ProductType[]>>;
+    Savedplan: ProductType[];
+    setSavedplan: React.Dispatch<React.SetStateAction<ProductType[]>>;
+};
+
+export const ProductContext = createContext<ContextType>({} as ContextType);
 
 const ProductContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [Addplan,setAddplan] = useState([]);
-    const [Savedplan,setSavedplan] = useState([]);
+    const [Addplan, setAddplan] = useState<ProductType[]>([]);
+    const [Savedplan, setSavedplan] = useState<ProductType[]>([]);
 
-    const contextValue = {
-        Addplan,
-        setAddplan,
-        Savedplan,
-        setSavedplan
-    };
     return (
-        <ProductContext.Provider value={contextValue}>{children}</ProductContext.Provider>
+        <ProductContext.Provider value={{ Addplan, setAddplan, Savedplan, setSavedplan }}>
+            {children}
+        </ProductContext.Provider>
     );
 };
 
-export default ProductContextProvider
+export default ProductContextProvider;

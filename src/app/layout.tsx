@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ProductContextProvider from "@/context/productContext";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,6 +35,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 </Suspense>
        <main> {children}</main>
         </ProductContextProvider>
+        <footer className="mt-auto">
+          <Footer />
+        </footer>
       </body>
     </html>
   );
