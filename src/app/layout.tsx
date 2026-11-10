@@ -6,6 +6,7 @@ import ProductContextProvider from "@/context/productContext";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer";
+import Banner from "@/components/banner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
