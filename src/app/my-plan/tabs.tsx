@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import { ProductContext } from '@/context/productContext';
 import { ProductType } from '@/types/datatype';
+import toast from 'react-hot-toast';
 
 type SortType = 'duration' | 'calories' | 'name';
 
@@ -13,15 +14,14 @@ const Tabs = () => {
 
     const currentList: ProductType[] = active === 'plan' ? Addplan : Savedplan;
 
-    // copy with [...] so the context array is never mutated
     const list: ProductType[] = [...currentList].sort((a, b) => {
         switch (sortBy) {
             case 'duration':
-                return a.duration - b.duration; // shortest first
+                return a.duration - b.duration; 
             case 'calories':
-                return b.caloriesBurned - a.caloriesBurned; // highest first
+                return b.caloriesBurned - a.caloriesBurned; 
             case 'name':
-                return a.name.localeCompare(b.name); // A to Z
+                return a.name.localeCompare(b.name); 
             default:
                 return 0;
         }
@@ -30,11 +30,15 @@ const Tabs = () => {
     const removeItem = (id: number) => {
         if (active === 'plan') {
             setAddplan((prev) => prev.filter((item) => item.id !== id));
+            toast.success('Exercise removed from Today\'s Plan!');
         } else {
             setSavedplan((prev) => prev.filter((item) => item.id !== id));
+            toast.success('Exercise removed from Saved!');
         }
     };
-
+    const handleMarkAsDone = () => {
+        toast.success('Exercise marked as done!');
+    }
     return (
         <div className="w-full mb-5">
             <div className="flex items-center justify-between gap-3 mb-5">
@@ -105,7 +109,7 @@ const Tabs = () => {
                                 </Link>
 
                                 {active === 'plan' && (
-                                    <button className="btn btn-sm bg-lime-400 text-black border-none rounded-full">
+                                    <button className="btn btn-sm bg-lime-400 text-black border-none rounded-full" onClick={handleMarkAsDone}>
                                         ✓ Mark as Done
                                     </button>
                                 )}
