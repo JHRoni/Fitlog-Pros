@@ -4,11 +4,28 @@ import Link from 'next/link';
 import { ProductContext } from '@/context/productContext';
 import { ProductType } from '@/types/datatype';
 
+type SortType = 'duration' | 'calories' | 'name';
+
 const Tabs = () => {
     const { Addplan, setAddplan, Savedplan, setSavedplan } = useContext(ProductContext);
     const [active, setActive] = useState<'plan' | 'saved'>('plan');
+    const [sortBy, setSortBy] = useState<SortType>('duration');
 
-    const list: ProductType[] = active === 'plan' ? Addplan : Savedplan;
+    const currentList: ProductType[] = active === 'plan' ? Addplan : Savedplan;
+
+    // copy with [...] so the context array is never mutated
+    const list: ProductType[] = [...currentList].sort((a, b) => {
+        switch (sortBy) {
+            case 'duration':
+                return a.duration - b.duration; // shortest first
+            case 'calories':
+                return b.caloriesBurned - a.caloriesBurned; // highest first
+            case 'name':
+                return a.name.localeCompare(b.name); // A to Z
+            default:
+                return 0;
+        }
+    });
 
     const removeItem = (id: number) => {
         if (active === 'plan') {
@@ -20,21 +37,36 @@ const Tabs = () => {
 
     return (
         <div className="w-full mb-5">
-            <div role="tablist" className="tabs tabs-box mb-5">
-                <button
-                    role="tab"
-                    className={`tab ${active === 'plan' ? 'tab-active' : ''}`}
-                    onClick={() => setActive('plan')}
-                >
-                    Today&apos;s Plan
-                </button>
-                <button
-                    role="tab"
-                    className={`tab ${active === 'saved' ? 'tab-active' : ''}`}
-                    onClick={() => setActive('saved')}
-                >
-                    Saved
-                </button>
+            <div className="flex items-center justify-between gap-3 mb-5">
+                <div role="tablist" className="tabs tabs-box">
+                    <button
+                        role="tab"
+                        className={`tab ${active === 'plan' ? 'tab-active' : ''}`}
+                        onClick={() => setActive('plan')}
+                    >
+                        Today&apos;s Plan
+                    </button>
+                    <button
+                        role="tab"
+                        className={`tab ${active === 'saved' ? 'tab-active' : ''}`}
+                        onClick={() => setActive('saved')}
+                    >
+                        Saved
+                    </button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400">Sort By</span>
+                    <select
+                        className="select select-sm w-32"
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as SortType)}
+                    >
+                        <option value="duration">Duration</option>
+                        <option value="calories">Calories</option>
+                        <option value="name">Name</option>
+                    </select>
+                </div>
             </div>
 
             {list.length === 0 ? (
@@ -56,9 +88,7 @@ const Tabs = () => {
                                 />
                                 <div>
                                     <h2 className="font-bold uppercase">{item.name}</h2>
-                                    <p className="text-sm text-gray-400">
-                                        {item.difficulty} | {item.equipment}
-                                    </p>
+                                    <p className="text-sm text-gray-400">{item.equipment}</p>
                                     <div className="flex gap-3 text-xs mt-2">
                                         <span className="text-lime-400">◷ {item.duration} min</span>
                                         <span className="text-lime-400">🔥 {item.caloriesBurned} kcal</span>
