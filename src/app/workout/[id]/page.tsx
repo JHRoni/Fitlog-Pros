@@ -15,7 +15,7 @@ const {id} = await params;
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-2">
 
-        {/* Workout Image */}
+        
         <div className="overflow-hidden rounded-xl">
           <img
             src={product.image}
@@ -24,10 +24,10 @@ const {id} = await params;
           />
         </div>
 
-        {/* Workout Information */}
+        
         <div className="space-y-6">
 
-          {/* Title */}
+          
           <div>
             <h1 className="text-3xl font-extrabold uppercase md:text-4xl">
               {product.name}
@@ -38,7 +38,7 @@ const {id} = await params;
             </p>
           </div>
 
-          {/* Muscle Groups */}
+          
           <div className="flex flex-wrap gap-2">
             {product.muscleGroups.map(
               (muscle: string, index: number) => (
